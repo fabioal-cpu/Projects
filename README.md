@@ -9,4 +9,4 @@ Create new branch
 
 3. git commit -m "mensaje"
 
-4.git push origin "name-branch"
+4. git push origin "name-branch"
