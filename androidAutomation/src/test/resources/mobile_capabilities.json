@@ -1,0 +1,10 @@
+{
+	"deviceName": "emulator-5554",
+	"platformName": "Android",
+	"platformVersion": "8.1",
+	"appPackage": "com.disney.wdpro.dlr",
+	"appActivity": "com.disney.wdpro.park.activities.LoaderActivity",
+	"app": "/Users/hans.marquez/Desktop/apps/Disneyland.apk",
+	"automationName": "UiAutomator2",
+    "skipServerInstallation": "true"
+}
