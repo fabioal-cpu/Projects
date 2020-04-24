@@ -26,7 +26,7 @@ public class SimpleTest {
     public void test(String uri){
         steps = new Users(uri);
 
-        users = new ArrayList<>();
+        users = new ArrayList();
 
         User carlos = User.builder()
         .first_name("Chapo")
