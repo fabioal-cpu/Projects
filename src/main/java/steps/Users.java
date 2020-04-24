@@ -149,7 +149,7 @@ public class Users {
 
     /**
      * Verify expected email.
-     * @param email Sring
+     * @param email String
      */
     @Step("Then there should be a email filed with value {0}")
     public void userEmailShouldBe(String email) {

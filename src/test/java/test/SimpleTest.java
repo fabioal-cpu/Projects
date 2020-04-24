@@ -33,7 +33,7 @@ public class SimpleTest {
         .last_name("Guzman")
         .email("hoyoEnUno@gmail.com")
         .country("Mexico")
-        .active("true")
+        .active(true)
         .telephone("2452345234532")
         .job_title("Minero")
         .build();
@@ -43,7 +43,7 @@ public class SimpleTest {
                 "lasdffuidsa@p.com",
                 "Colombia",
                 "3452345",
-                "true",
+                true,
                 "Java  dev");
 
         users.add(carlos);
