@@ -2,9 +2,11 @@
 
 <suite name="example test suite" verbose="1">
 	<parameter name="uri" value="http://5d6fd3a8482b530014d2e8da.mockapi.io/mock/api"/>
+	<parameter name="name" value="Pepito Perez"/>
+	<parameter name="email" value="PepitoPerez@globant.com"/>
 	<test name="example run">
 		<classes>
-			<class name="test.SimpleTest"/>
+			<class name="com.automation.api.tests.SimpleTest"/>
 		</classes>
 	</test>
 </suite>

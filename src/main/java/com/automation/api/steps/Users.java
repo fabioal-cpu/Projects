@@ -1,13 +1,13 @@
-package steps;
+package com.automation.api.steps;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import net.thucydides.core.annotations.Step;
 import org.apache.log4j.Logger;
-import org.junit.Assert;
-import pojo.User;
+import com.automation.api.pojo.User;
 
 import java.util.List;
+import java.util.Optional;
 
 import static net.serenitybdd.rest.SerenityRest.given;
 import static net.serenitybdd.rest.SerenityRest.then;
@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class Users {
 
-    private String endpoint;
+    private final String endpoint;
     private Response response;
     public Logger log = Logger.getLogger(Users.class);
 
@@ -61,19 +61,15 @@ public class Users {
 
     /**
      * POST Method create new user.
-     * @param users list of {@link User}
+     * @param user {@link User}
      */
     @Step("When I create users")
-    public void createUsers(List<User> users) {
-        for (User user : users) {
-            response = given()
-                    .contentType(ContentType.JSON)
-                    .body(user)
-                .when()
-                    .post(endpoint);
-
-            Assert.assertEquals(201, response.statusCode());
-        }
+    public void createUser(User user) {
+        response = given()
+                .contentType(ContentType.JSON)
+                .body(user)
+            .when()
+                .post(endpoint);
     }
 
     /**
@@ -145,6 +141,48 @@ public class Users {
                 .getList("$", User.class);
 
         log.info(users);
+    }
+
+
+    /**
+     * Find first user with the name.
+     * @param name String name
+     * @return sting with the id
+     */
+    @Step("Then I can see the list of users")
+    public String getUserID(String name) {
+        List<User> users = then()
+                .contentType(ContentType.JSON)
+                .extract()
+                .response()
+                .jsonPath()
+                .getList("$", User.class);
+
+        Optional<User> id = users.stream().filter(user ->
+                name.equals(user.getFirst_name() + " " + user.getLast_name()))
+                .findFirst();
+
+        if (id.isPresent())
+            return id.get().getId();
+        else
+            return "";
+    }
+
+
+    /**
+     * Get last id in the list.
+     * @return sting with the id
+     */
+    @Step("Then I can see the list of users")
+    public String getLastId() {
+        List<User> users = then()
+                .contentType(ContentType.JSON)
+                .extract()
+                .response()
+                .jsonPath()
+                .getList("$", User.class);
+
+        return users.get(users.size() - 1).getId();
     }
 
     /**

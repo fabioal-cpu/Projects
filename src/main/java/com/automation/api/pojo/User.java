@@ -1,12 +1,10 @@
-package pojo;
+package com.automation.api.pojo;
 
-import lombok.Builder;
 
 /**
  * Class that represent a response after a get request
  * @author eliecer.martinez@globant.com
  */
-@Builder
 public class User {
 
     private String id;
