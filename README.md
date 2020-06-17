@@ -1,4 +1,4 @@
-# API ACADEMY
+# API Automation
   
 INSTALL FRAMEWORK
 
