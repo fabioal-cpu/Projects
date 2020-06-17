@@ -192,5 +192,8 @@ public class Users {
     @Step("Then there should be a email filed with value {0}")
     public void userEmailShouldBe(String email) {
         response.then().body("email", equalTo(email));
+        User user = response.then().contentType(ContentType.JSON).extract().response().jsonPath()
+                .getObject("$", User.class);
+        log.info(user.getEmail());
     }
 }
