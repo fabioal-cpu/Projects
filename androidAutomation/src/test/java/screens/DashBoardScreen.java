@@ -42,13 +42,13 @@ public class DashBoardScreen extends BaseScreen {
 	private AndroidElement signInButton;
 	
 	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.disney.wdpro.dlr:id/tmpsubacts_root\").childSelector(new UiSelector().textContains(\"Sign In\"))")
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.disney.wdpro.dlr:id/tmpsubacts_primary\")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/tmpsubacts_root\").childSelector(new UiSelector().textContains(\"Sign In\"))")
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/tmpsubacts_primary\")")
     private AndroidElement userTextBox;
 	
 	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.disney.wdpro.dlr:id/tmpsubacts_root\").childSelector(new UiSelector().textContains(\"Sign In\"))")
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceId(\"com.disney.wdpro.dlr:id/tmpsubacts_primary\")")
+    @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/tmpsubacts_root\").childSelector(new UiSelector().textContains(\"Sign In\"))")
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/tmpsubacts_primary\")")
     private AndroidElement passwordTextBox;
 	
 	
