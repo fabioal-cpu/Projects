@@ -11,65 +11,67 @@ import com.automation.api.steps.Users;
 
 public class SimpleTest {
 
-    private Users steps;
+    private Users user_steps;
 
     @BeforeMethod
     @Parameters({"uri"})
     public void test(String uri){
-        steps = new Users(uri);
+        user_steps = new Users(uri);
     }
 
     @Test(description = "Get list of users")
     public void getUsersTest(){
-        steps.getUsersAPIEndpoint();
-        steps.getUsers();
-        steps.isStatusCode(200);
-        steps.showActualUsersList();
+        user_steps.getUsersAPIEndpoint();
+        user_steps.getUsers();
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        user_steps.showActualUsersList();
     }
 
     @Test(description = "Get a user")
     @Parameters({"name", "email"})
     public void getUserTest(String name, String email){
-        steps.getUsersAPIEndpoint();
-        steps.getUsers();
-        steps.isStatusCode(200);
-        String id = steps.getUserID(name);
+        user_steps.getUsersAPIEndpoint();
+        user_steps.getUsers();
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        String id = user_steps.getUserID(name);
         Assert.assertNotEquals(id, "", "User doesn't exists");
-        steps.getUser(id);
-        steps.isStatusCode(200);
-        steps.userEmailShouldBe(email);
+        user_steps.getUser(id);
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        User user = user_steps.getUserResponse();
+        Assert.assertEquals(user.getEmail(), email, "Email is not correct");
     }
 
     @Test(description = "Create a new user post", dataProviderClass = Data.class, dataProvider = "users")
     public void postUsersTest(User user){
-        steps.getUsersAPIEndpoint();
-        steps.createUser(user);
-        steps.isStatusCode(201);
+        user_steps.getUsersAPIEndpoint();
+        user_steps.createUser(user);
+        Assert.assertEquals(user_steps.getStatusCode(), 201, "Status is not correct");
     }
 
     @Test(description = "Update user", dataProviderClass = Data.class, dataProvider = "users")
     public void putTest(User user){
-        steps.getUsersAPIEndpoint();
-        steps.getUsers();
-        steps.isStatusCode(200);
-        String id = steps.getUserID(user.getFirst_name() + " " + user.getLast_name());
+        user.setJobTitle("Mesero");
+        user_steps.getUsersAPIEndpoint();
+        user_steps.getUsers();
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        String id = user_steps.getUserID(user.getFirst_name() + " " + user.getLast_name());
         Assert.assertNotEquals(id, "", "User doesn't exists");
-        steps.getUsersAPIEndpoint();
-        steps.updateUser(id, "Mesero");
-        steps.isStatusCode(200);
-        steps.jobTitleChanged("Mesero");
+        user_steps.getUsersAPIEndpoint();
+        user_steps.updateUser(id, user.getJobTitle());
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        Assert.assertEquals(user_steps.getUserResponse().getJobTitle(),  user.getJobTitle(), "Job title is not correct");
     }
 
     @Test(description = "delete las user")
     public void deleteUserTest(){
-        steps.getUsersAPIEndpoint();
-        steps.getUsers();
-        steps.isStatusCode(200);
-        String id = steps.getLastId();
+        user_steps.getUsersAPIEndpoint();
+        user_steps.getUsers();
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        String id = user_steps.getLastId();
         Assert.assertNotNull(id, "NOT HAVE USERS");
-        steps.deleteUser(id);
-        steps.isStatusCode(200);
-        steps.getUser(id);
-        steps.isStatusCode(404);
+        user_steps.deleteUser(id);
+        Assert.assertEquals(user_steps.getStatusCode(), 200, "Status is not correct");
+        user_steps.getUser(id);
+        Assert.assertEquals(user_steps.getStatusCode(), 404, "Status is not correct");
     }
 }

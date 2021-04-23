@@ -181,7 +181,7 @@ public class User {
      * Get job title.
      * @return String
      */
-    public String getJob_title() {
+    public String getJobTitle() {
         return job_title;
     }
 
@@ -189,7 +189,7 @@ public class User {
      * Set job title.
      * @param job_title String
      */
-    public void setJob_title(String job_title) {
+    public void setJobTitle(String job_title) {
         this.job_title = job_title;
     }
 
