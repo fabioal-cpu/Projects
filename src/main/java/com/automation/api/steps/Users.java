@@ -1,16 +1,14 @@
 package com.automation.api.steps;
 
+import com.automation.api.pojo.User;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import net.thucydides.core.annotations.Step;
+import static io.restassured.RestAssured.*;
 import org.apache.log4j.Logger;
-import com.automation.api.pojo.User;
 
 import java.util.List;
 import java.util.Optional;
 
-import static net.serenitybdd.rest.SerenityRest.given;
-import static net.serenitybdd.rest.SerenityRest.then;
 import static org.hamcrest.Matchers.equalTo;
 
 public class Users {
@@ -30,7 +28,6 @@ public class Users {
     /**
      * Get users endpoint print.
      */
-    @Step("Given the users API endpoint")
     public void getUsersAPIEndpoint() {
         log.info(endpoint);
     }
@@ -39,7 +36,6 @@ public class Users {
      * GET Method users/:id.
      * @param id String
      */
-    @Step("When I look for the user with id {0}")
     public void getUser(String id) {
         response = given()
                 .contentType(ContentType.JSON)
@@ -51,9 +47,8 @@ public class Users {
     /**
      * GET Method users (list of users).
      */
-    @Step("When I look for users")
     public void getUsers() {
-        given()
+        response = given()
                 .contentType(ContentType.JSON)
         .when()
                 .get(endpoint);
@@ -63,7 +58,6 @@ public class Users {
      * POST Method create new user.
      * @param user {@link User}
      */
-    @Step("When I create users")
     public void createUser(User user) {
         response = given()
                 .contentType(ContentType.JSON)
@@ -77,7 +71,6 @@ public class Users {
      * @param id String
      * @param jobTitle String
      */
-    @Step("When I update the job title of the user with id {0} with {1}")
     public void updateUser(String id, String jobTitle) {
 
         /*Option 1 (not a good practice)
@@ -89,7 +82,7 @@ public class Users {
         User user = new User();
         user.setJob_title(jobTitle);
 
-        given()
+        response = given()
                 .contentType(ContentType.JSON)
                 .body(user)
             .when()
@@ -100,9 +93,8 @@ public class Users {
      * DELETE Method, delete user by id.
      * @param id String
      */
-    @Step("When I delete the user with id {0}")
     public void deleteUser(String id) {
-        given()
+        response = given()
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(endpoint + id);
@@ -112,9 +104,8 @@ public class Users {
      * Verify expected title.
      * @param jobTitle String
      */
-    @Step("Then the job title will be equals to {0}")
     public void jobTitleChanged(String jobTitle) {
-        then()
+        response.then()
                 .body("job_title", equalTo(jobTitle));
     }
 
@@ -122,18 +113,16 @@ public class Users {
      * Verify expected status code.
      * @param statusCode int
      */
-    @Step("Then the status code will be {0}")
     public void isStatusCode(int statusCode) {
-        then()
+        response.then()
                 .statusCode(statusCode);
     }
 
     /**
      * Print list of users.
      */
-    @Step("Then I can see the list of users")
     public void showActualUsersList() {
-        List<User> users = then()
+        List<User> users = response.then()
                 .contentType(ContentType.JSON)
                 .extract()
                 .response()
@@ -149,9 +138,8 @@ public class Users {
      * @param name String name
      * @return sting with the id
      */
-    @Step("Then I can see the list of users")
     public String getUserID(String name) {
-        List<User> users = then()
+        List<User> users = response.then()
                 .contentType(ContentType.JSON)
                 .extract()
                 .response()
@@ -173,9 +161,8 @@ public class Users {
      * Get last id in the list.
      * @return sting with the id
      */
-    @Step("Then I can see the list of users")
     public String getLastId() {
-        List<User> users = then()
+        List<User> users =response.then()
                 .contentType(ContentType.JSON)
                 .extract()
                 .response()
@@ -189,7 +176,6 @@ public class Users {
      * Verify expected email.
      * @param email String
      */
-    @Step("Then there should be a email filed with value {0}")
     public void userEmailShouldBe(String email) {
         response.then().body("email", equalTo(email));
         User user = response.then().contentType(ContentType.JSON).extract().response().jsonPath()
