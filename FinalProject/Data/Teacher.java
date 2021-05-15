@@ -40,6 +40,15 @@ public class Teacher extends Person{
         }
     }
 
+
+    public String getName(){
+        return name;
+    }
+
+
+    public void setName(String name){
+        this.name = name;
+    }
     public String getType() {
         return type;
     }
@@ -88,9 +97,7 @@ public class Teacher extends Person{
         this.teachertype = teachertype;
     }
 
-    public String getname() {
-        return name;
-    }
+
 
 
 }
