@@ -29,21 +29,51 @@ public class TutorialScreen extends BaseScreen {
 		super(driver);
 	}
 
-	// AndroidElements
 	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-	@AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.ImageButton\").descriptionContains(\"Close\")") 
-	@AndroidFindBy(uiAutomator = "new UiSelector().classNameMatches(\".*Button.*\")")
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*button2.*\")")
-	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"ALLOW\")")
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*permission_allow_button\")")
-	private AndroidElement alertsPopUps;
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*permission_primary_btn.*\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"Get Started\")")
+	private AndroidElement getStartedButton;
 
 	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*tmpsubacts_root\").childSelector(new UiSelector().textContains(\"Sign In\"))")
-	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*tmpsubacts_primary\")")
-	@AndroidFindBy(uiAutomator = "new UiSelector().descriptionContains(\"Sign In, button\")")
-	private MobileElement signInButton;
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*skip_text.*\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"Skip\")")
+	private AndroidElement skipLocationButton;
 
+	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*permission_primary_btn.*\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"Share Location\")")
+	private AndroidElement shareLocationButton;
+
+	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*message.*\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"Use your location to enable\")")
+	private AndroidElement locationDescriptionLabel;
+
+	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
+	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*button1.*\")")
+	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"OK\")")
+	private AndroidElement allowLocationButton;
+
+	/**
+	 * @author Hans.Marquez
+	 *
+	 * @description: Start permissions process.
+	 *
+	 */
+	public void startPermissionsProcess() {
+		click(getStartedButton);
+	}
+
+	/**
+	 * @author Hans.Marquez
+	 *
+	 * @description: Start permissions process.
+	 *
+	 */
+	public DashBoardScreen skipLocationPermissions() {
+		click(skipLocationButton);
+		return new DashBoardScreen(driver);
+	}
 
 
 	/**
@@ -56,40 +86,16 @@ public class TutorialScreen extends BaseScreen {
 	 */
 	public DashBoardScreen handleAlerts() {
 
-		int retries = 0;
-		while(retries < 6) {
-			try {
-				if(alertsPopUps.isDisplayed() == true) {
-					click(alertsPopUps, 3);
-					retries++;
-				}
-			}catch(Exception e) {
-				retries++;
-				System.out.println("Not Pop Ups");
-			}
-		}
 		return new DashBoardScreen(driver);
 	}
 
-
-	/**
-	 * @author Hans.Marquez
-	 *
-	 * @description: Scroll Over Tutorial
-	 *
-	 */
-	public void scrollOverTutorial() {
-		isElementAvailable(alertsPopUps);
-		scrollDown(3);
-		scrollUp(3);
-	}
 
 	/**
 	 * Alert control.
 	 */
 	@Override
 	public void alertControl() {
-		alertsPopUps.click();
+
 	}
 
 }

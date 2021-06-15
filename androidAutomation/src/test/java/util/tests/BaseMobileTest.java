@@ -78,17 +78,8 @@ public abstract class BaseMobileTest {
 	 * @return SignUpOrLogInScreen
 	 */
 	protected DashBoardScreen loadDashBoardScreen() {
-		return tutorialScreen.handleAlerts();
-	}
-	
-	/**
-	 * Scroll Over Tutorial Screen
-	 * 
-	 * @author Hans.Marquez
-	 * 
-	 */
-	protected void scrollOverTutorial() {
-		tutorialScreen.scrollOverTutorial();
+		tutorialScreen.startPermissionsProcess();
+		return tutorialScreen.skipLocationPermissions();
 	}
 
 }

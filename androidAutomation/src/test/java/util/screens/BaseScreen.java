@@ -5,6 +5,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import screens.AlertHandler;
 import util.CustomWait;
 
@@ -147,7 +149,7 @@ public abstract class BaseScreen implements AlertHandler{
 	
 	
 	/**
-	 * Wrapper for click  event.
+	 * Wrapper for click event.
 	 * 
 	 * @author Hans.Marquez
 	 *
@@ -175,17 +177,21 @@ public abstract class BaseScreen implements AlertHandler{
 	}
 	
 	/**
-	 * Wrapper for sendKeys event.
+	 * Wrapper for Visibility event.
 	 * 
 	 * @author Hans.Marquez
 	 *
 	 * @param element : AndroidElement
-	 * @param sequence: String
 	 */
 	public boolean isElementAvailable(AndroidElement element) {
-		WebDriverWait wait = new WebDriverWait(driver,15);
-		wait.until(ExpectedConditions.visibilityOf(element));
-		return true;
+		WebDriverWait wait = new WebDriverWait(driver,8);
+		try {
+			wait.until(ExpectedConditions.visibilityOf(element));
+			return true;
+		} catch (NoSuchElementException| TimeoutException e){
+			log.info("Error: " + element + " Not displayed!");
+			return false;
+		}
 	}
 	
 }

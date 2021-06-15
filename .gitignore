@@ -1,0 +1,11 @@
+
+.DS_Store
+.idea/.name
+.idea/libraries/
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/MobileAutomationAcademy.iml
+.idea/workspace.xml

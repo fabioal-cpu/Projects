@@ -27,36 +27,6 @@ public class LoginScreen extends BaseScreen {
 		super(driver);
 	}
 
-	
-	/** The sign in button. */
-	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/btn_login\")")
-	@AndroidFindBy(uiAutomator = "new UiSelector().className(\"android.widget.Button\").textContains(\"Sign\")")
-    private AndroidElement signInButton;
-	
-	/** The user text box. */
-	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/email_id\")")
-    private AndroidElement userTextBox;
-	
-	/** The password text box. */
-	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
-    @AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*:id/password_id\")")
-    private AndroidElement passwordTextBox;
-	
-	
-
-	/**
-	 * Fill in login data.
-	 *
-	 * @param user     :String
-	 * @param password :String
-	 */
-	public void fillInLoginData(String user, String password) {
-		sendKeys(userTextBox, user);
-		sendKeys(passwordTextBox, password);
-		click(signInButton);
-	}
 
 
 	/**
