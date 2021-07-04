@@ -11,7 +11,7 @@ import util.screens.BaseScreen;
 /**
  * DashBoard screen.
  * 
- * @author Hans.Marquez
+ * @author Hans.Marquez / Fabio.alarcon
  *
  */
 public class DashBoardScreen extends BaseScreen {
@@ -19,7 +19,7 @@ public class DashBoardScreen extends BaseScreen {
 	/**
 	 * Constructor method.
 	 * 
-	 * @author Hans.Marquez
+	 * @author Hans.Marquez / Fabio.alarcon
 	 * 
 	 * @param driver
 	 *            : AndroidDriver
@@ -68,7 +68,10 @@ public class DashBoardScreen extends BaseScreen {
 	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*tab_icon.*\").descriptionContains(\"More Options\")")
 	@AndroidFindBy(uiAutomator = "//android.widget.ImageView[contains(@content-desc,\"More Options\")]")
 	private AndroidElement moreOptionsButton;
-	
+
+	@AndroidFindBy(id = "com.disney.wdpro.dlr:id/tab_animated_icon")
+	private AndroidElement moreOptionButton;
+
 	/**
 	 * @author Hans.Marquez
 	 *
@@ -90,6 +93,15 @@ public class DashBoardScreen extends BaseScreen {
 		click(dismissPreferenceUpdateButton);
 		click(mapButton);
 		return new MapScreen(driver);
+	}
+
+	/**
+	 * Click to go to dining option
+	 */
+	public Dining goToMoreOption() {
+		click(dismissPreferenceUpdateButton);
+		click(moreOptionButton);
+		return new Dining(driver);
 	}
 
 	/**

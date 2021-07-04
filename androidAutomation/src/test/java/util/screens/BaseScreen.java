@@ -71,7 +71,7 @@ public abstract class BaseScreen implements AlertHandler{
 	 * @param swipes the swipes
 	 */
 	public void scrollDown(int swipes) {
-		String locator = "new UiScrollable(new UiSelector().resourceIdMatches(\".*ontainer.*\")).flingToEnd(1)";
+		String locator = "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(1)";
 		scroll(locator, swipes);
 	}
 

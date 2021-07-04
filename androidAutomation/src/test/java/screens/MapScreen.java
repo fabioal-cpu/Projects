@@ -13,7 +13,7 @@ import static io.appium.java_client.pagefactory.LocatorGroupStrategy.ALL_POSSIBL
 /**
  * Map screen.
  * 
- * @author Hans.Marquez
+ * @author Hans.Marquez / Fabio.alarcon
  *
  */
 public class MapScreen extends BaseScreen {
@@ -21,7 +21,7 @@ public class MapScreen extends BaseScreen {
 	/**
 	 * Constructor method.
 	 *
-	 * @author Hans.Marquez
+	 * @author Hans.Marquez / Fabio.alarcon
 	 * @param driver the driver
 	 */
 	public MapScreen(AndroidDriver<AndroidElement> driver) {
@@ -35,12 +35,16 @@ public class MapScreen extends BaseScreen {
 	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
 	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*filterTitle.*\")")
 	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"Filter\")")
+	@AndroidFindBy(id = "com.disney.wdpro.dlr:id/filterTitle")
 	private AndroidElement filterButton;
 
 	@HowToUseLocators(androidAutomation = ALL_POSSIBLE)
 	@AndroidFindBy(uiAutomator = "new UiSelector().resourceIdMatches(\".*tmpsubacts_primary\")")
 	@AndroidFindBy(uiAutomator = "new UiSelector().textContains(\"Show List\")")
 	private AndroidElement showListButton;
+
+	@AndroidFindBy(id = "com.disney.wdpro.dlr:id/toggleTitle")
+	private AndroidElement showFullListButton;
 
 	/**
 	 * @author Hans.Marquez
@@ -73,12 +77,29 @@ public class MapScreen extends BaseScreen {
 	}
 
 	/**
+	 * Go to attraction general full list
+	 * @return driver to Astro class
+	 */
+	public Astro goToAttractionList() {
+		click(showFullListButton);
+		return new Astro(driver);
+	}
+
+	/**
+	 * Go to filter general full list
+	 * @return driver to Star Wars class
+	 */
+	public StarWars goToFilterButton(){
+		click(filterButton);
+		return new StarWars(driver);
+	}
+
+	/**
 	 * Alert control.
 	 */
 	@Override
 	public void alertControl() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 }
