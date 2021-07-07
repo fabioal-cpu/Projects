@@ -2,19 +2,21 @@ package com.automation.api.pojo;
 
 
 /**
- * Class that represent a response after a get request
- * @author eliecer.martinez@globant.com
+ * Class that represent the base of the resource schema
+ * @author fabio.alarcon
  */
 public class User {
 
     private String id;
-    private String first_name;
-    private String last_name;
-    private String email;
-    private String country;
-    private String telephone;
-    private boolean active;
-    private String job_title;
+    private String name;
+    private String lastName;
+    private double AccountNumber;
+    private double Amount;
+    private String TransactionType;
+    private String Email;
+    private boolean Active;
+    private String Country;
+    private String Telephone;
 
     /**
      * Constructor.
@@ -24,45 +26,57 @@ public class User {
     /**
      * Constructor.
      * @param id String
-     * @param first_name String
-     * @param last_name String
+     * @param name String
+     * @param lastName String
+     * @param accountNumber double
+     * @param amount double
+     * @param transactionType String
      * @param email String
+     * @param active boolean
      * @param country String
      * @param telephone String
-     * @param active boolean
-     * @param job_title String
+     *
      */
-    public User(String id, String first_name, String last_name, String email,
-                String country, String telephone, boolean active, String job_title) {
+    public User(String id, String name, String lastName, double accountNumber,
+                double amount, String transactionType, String email, boolean active,
+                String country, String telephone) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.country = country;
-        this.telephone = telephone;
-        this.active = active;
-        this.job_title = job_title;
+        this.name = name;
+        this.lastName = lastName;
+        this.AccountNumber = accountNumber;
+        this.Amount = amount;
+        this.TransactionType = transactionType;
+        this.Email = email;
+        this.Active = active;
+        this.Country = country;
+        this.Telephone = telephone;
     }
 
     /**
      * Constructor.
-     * @param first_name String
-     * @param last_name String
+     * @param name String
+     * @param lastName String
+     * @param accountNumber double
+     * @param amount double
+     * @param transactionType String
      * @param email String
+     * @param active boolean
      * @param country String
      * @param telephone String
-     * @param active boolean
-     * @param job_title String
+     *
      */
-    public User(String first_name, String last_name, String email,
-                String country, String telephone, boolean active, String job_title) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.country = country;
-        this.telephone = telephone;
-        this.active = active;
-        this.job_title = job_title;
+    public User(String name, String lastName, double accountNumber,
+                double amount, String transactionType, String email, boolean active,
+                String country, String telephone) {
+        this.name = name;
+        this.lastName = lastName;
+        this.AccountNumber = accountNumber;
+        this.Amount = amount;
+        this.TransactionType = transactionType;
+        this.Email = email;
+        this.Active = active;
+        this.Country = country;
+        this.Telephone = telephone;
     }
 
     /**
@@ -85,32 +99,32 @@ public class User {
      * Get first name.
      * @return String
      */
-    public String getFirst_name() {
-        return first_name;
+    public String getName() {
+        return name;
     }
 
     /**
      * Set first name.
-     * @param first_name String
+     * @param name String
      */
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * Get last name.
      * @return String
      */
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
     /**
      * Set last name
-     * @param last_name String
+     * @param lastName String
      */
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -118,7 +132,7 @@ public class User {
      * @return String
      */
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     /**
@@ -126,7 +140,7 @@ public class User {
      * @param email String
      */
     public void setEmail(String email) {
-        this.email = email;
+        this.Email = email;
     }
 
     /**
@@ -134,7 +148,7 @@ public class User {
      * @return String
      */
     public String getCountry() {
-        return country;
+        return Country;
     }
 
     /**
@@ -142,7 +156,7 @@ public class User {
      * @param country String
      */
     public void setCountry(String country) {
-        this.country = country;
+        this.Country = country;
     }
 
     /**
@@ -150,7 +164,7 @@ public class User {
      * @return String
      */
     public String getTelephone() {
-        return telephone;
+        return Telephone;
     }
 
     /**
@@ -158,7 +172,7 @@ public class User {
      * @param telephone String
      */
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+        this.Telephone = telephone;
     }
 
     /**
@@ -166,31 +180,64 @@ public class User {
      * @return boolean
      */
     public boolean getActive() {
-        return active;
+        return Active;
     }
+
 
     /**
      * Set active.
      * @param active boolean
      */
     public void setActive(boolean active) {
-        this.active = active;
+        this.Active = active;
     }
 
     /**
-     * Get job title.
-     * @return String
+     * get AccountNumber
+     * @return AccountNumber double
      */
-    public String getJobTitle() {
-        return job_title;
+    public double getAccountNumber() {
+        return AccountNumber;
     }
 
     /**
-     * Set job title.
-     * @param job_title String
+     * set Account Number
+     * @param AccountNumber double
      */
-    public void setJobTitle(String job_title) {
-        this.job_title = job_title;
+    public void setAccountNumber(double AccountNumber) {
+        this.AccountNumber = AccountNumber;
+    }
+
+    /**
+     * get Amount
+     * @return Amount double
+     */
+    public double getAmount() {
+        return Amount;
+    }
+
+    /**
+     * set Amount
+     * @param amount double
+     */
+    public void setAmount(double amount) {
+        this.Amount = amount;
+    }
+
+    /**
+     * get Transaction Type
+     * @return TransactionType String
+     */
+    public String getTransactionType() {
+        return TransactionType;
+    }
+
+    /**
+     * set Transaction Type
+     * @param transactionType String
+     */
+    public void setTransactionType(String transactionType) {
+        this.TransactionType = transactionType;
     }
 
     /**
@@ -201,13 +248,15 @@ public class User {
     public String toString() {
         return "\nUser{" +
                 "id='" + id + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", email='" + email + '\'' +
-                ", country='" + country + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", active='" + active + '\'' +
-                ", job_title='" + job_title + '\'' +
+                ", first_name='" + name + '\'' +
+                ", last_name='" + lastName + '\'' +
+                ", accountNumber='" + AccountNumber + '\'' +
+                ", amount='" + Amount + '\'' +
+                ", transactionType='" + TransactionType + '\'' +
+                ", email='" + Email + '\'' +
+                ", active='" + Active + '\'' +
+                ", country='" + Country + '\'' +
+                ", telephone='" + Telephone + '\'' +
                 '}';
     }
 }

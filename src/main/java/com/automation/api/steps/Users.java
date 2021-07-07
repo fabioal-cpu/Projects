@@ -5,10 +5,13 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.*;
 import org.apache.log4j.Logger;
-
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class that contains the methods used in the @Test
+ * @author fabio.alarcon
+ */
 public class Users {
 
     private final String endpoint;
@@ -20,7 +23,7 @@ public class Users {
      * @param uri String
      */
     public Users(String uri) {
-        endpoint = uri + "/v1/users/";
+        endpoint = uri + "/Transactions/";
     }
 
     /**
@@ -30,14 +33,6 @@ public class Users {
         log.info(endpoint);
     }
 
-    /**
-     * GET Method users/:id.
-     * @param id String
-     */
-    public void getUser(String id) {
-        response = given().get(endpoint + id);
-        log.info(response.asString());
-    }
 
     /**
      * GET Method users (list of users).
@@ -45,6 +40,31 @@ public class Users {
     public void getUsers() {
         response = given().get(endpoint);
     }
+
+    /**
+     * Method to check if the email already exist in the data
+     * @param user1 list
+     */
+    public void getUsersEmail(User user1) {
+        List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
+
+        boolean emailValidation = true;
+
+        for (int i =0; i<users.size(); i++){
+            if(users.get(i).getEmail().equals(user1.getEmail())){
+                emailValidation = false; }
+        }
+
+        if(emailValidation == false){
+            log.info("The email already exist");
+        }else {
+            response = given().contentType(ContentType.JSON).body(user1).when().post(endpoint);
+            log.info("User created");
+
+        }
+
+    }
+
 
     /**
      * POST Method create new user.
@@ -55,14 +75,22 @@ public class Users {
     }
 
     /**
-     * PUT Method update job title of a user.
-     * @param id String
-     * @param jobTitle String
+     * Method to create multiple users
+     * @param multipleData list
      */
-    public void updateUser(String id, String jobTitle) {
+    public void createMultipleUsers(Object[] multipleData) {
+        for (Object data : multipleData) {
+            response = given().contentType(ContentType.JSON).body(data).when().post(endpoint);
+        }
+    }
+    /**
+     * PUT Method update AccountNumber of a user.
+     * @param id String
+     * @param AccountNumber double
+     */
+    public void updateUser(String id, double AccountNumber) {
         User user = new User();
-        user.setJobTitle(jobTitle);
-
+        user.setAccountNumber(AccountNumber);
         response = given().contentType(ContentType.JSON).body(user).when().put(endpoint + id);
     }
 
@@ -73,6 +101,25 @@ public class Users {
     public void deleteUser(String id) {
         response = given().delete(endpoint + id);
     }
+
+    /**
+     * Method to delete all the users
+     */
+    public void deleteAllUser() {
+        List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
+        if (users.isEmpty()){
+            log.info("There is no data");
+        }else {
+            int i = 0;
+            while (i < users.size()) {
+                String id = users.get(i).getId();
+                deleteUser(id);
+                i++;
+            }
+            log.info("Warning: All the data was deleted!");
+        }
+    }
+
 
     /**
      * get response status code.
@@ -100,7 +147,7 @@ public class Users {
         List<User> users = response.then().extract().response().jsonPath().getList("$", User.class);
 
         Optional<User> id = users.stream().filter(user ->
-                name.equals(user.getFirst_name() + " " + user.getLast_name()))
+                name.equals(user.getName() + " " + user.getLastName()))
                 .findFirst();
 
         if (id.isPresent())
@@ -109,16 +156,6 @@ public class Users {
             return "";
     }
 
-
-    /**
-     * Get last id in the list.
-     * @return sting with the id
-     */
-    public String getLastId() {
-        List<User> users =response.then().extract().response().jsonPath().getList("$", User.class);
-
-        return users.get(users.size() - 1).getId();
-    }
 
     /**
      * get user response.
