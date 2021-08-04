@@ -60,6 +60,12 @@ public class HomePage extends BasePage {
     @FindBy(css = "div[data-testid='location-field-leg1-destination-container']")
     private WebElement inputDestinationWrapper;
 
+    @FindBy(css = "a[class=\"uitk-tab-anchor\"]")
+    private List<WebElement> selectPackage;
+
+
+
+    private String focusDayCalendar = "edge";
 
     /**
      * Constructor.
@@ -71,16 +77,23 @@ public class HomePage extends BasePage {
         driver.get(url);
     }
 
+    public void selectFlightButton(){
+        clickOnElement(this.flightsButton);
+    }
+
     /**
      * Method to select two travelers
      */
     public void selectionTwoTravelers() {
 
-        clickOnElement(this.flightsButton);
         clickOnElement(this.selectorTravelers);
         List<WebElement> addingAdults = addAdults;
         addingAdults.get(1).click();
         clickOnElement(this.selectorTravelers);
+    }
+
+    public void roundTripButton(){
+        clickOnElement(this.roundTripButton);
     }
 
     /**
@@ -89,7 +102,6 @@ public class HomePage extends BasePage {
      */
     public void searchFlightOrigin(String origin) {
 
-        clickOnElement(this.roundTripButton);
         waitElementVisibility(this.inputDepatureWrapper);
         clickOnElement(this.inputDepatureWrapper);
         this.departureInput.click();
@@ -137,5 +149,32 @@ public class HomePage extends BasePage {
         clickOnElement(this.submitButton);
 
         return new ResultsSearchFlight(getDriver());
+    }
+
+    public PackagePage clickOnPackage(){
+        WebElement packageButton  = selectPackage.get(3);
+        clickOnElement(packageButton);
+        return new PackagePage(getDriver());
+    }
+
+
+
+    public PackagePage selectingDatesPackage(int daysFromToday){
+        clickOnElement(this.calendarButton);
+        int daysCalendarSize = this.calendarDayLists.size();
+        int cont = 0;
+        boolean selectedDayFlag = false;
+
+        while (cont < daysCalendarSize-1 && !selectedDayFlag){
+            if(this.calendarDayLists.get(cont).getAttribute("class").contains(this.focusDayCalendar)){
+                this.calendarDayLists.get(cont+daysFromToday).click();
+                selectedDayFlag = true;
+            }
+            cont++;
+        }
+        clickOnElement(this.calendarDoneButton);
+        clickOnElement(this.submitButton);
+
+        return new PackagePage(getDriver());
     }
 }
